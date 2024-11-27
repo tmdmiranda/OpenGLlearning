@@ -87,7 +87,7 @@ int main()
 
 	//Texture
 
-	Texture betty("betty.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
+	Texture betty("brick.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
 	betty.texUnit(shaderProgram, "tex0", 0);
 
 	float rotation = 0.0f;
