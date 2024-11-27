@@ -1,14 +1,17 @@
 #include "VAO.h"
 
+
+//CONSTRUCTOR GENERATES A VAO ID
 VAO::VAO()
 {
 	glGenVertexArrays(1, &ID);
 }
 
-void VAO::LinkVBO(VBO& VBO, GLuint layout)
+// Links a VBO TO THE VAO USING A CERTAIN LAYOUT
+void VAO::LinkAttrib(VBO VBO, GLuint layout, GLuint numComponents, GLenum type, GLsizeiptr stride, void* offset)
 {
 	VBO.Bind();
-	glVertexAttribPointer(layout, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+	glVertexAttribPointer(layout, numComponents, type, GL_FALSE, stride, offset);
 	// ligar o vertex attribute para o OPENGL saber para o usar
 	glEnableVertexAttribArray(layout);
 	VBO.Unbind();
