@@ -5,19 +5,14 @@ layout (location = 2) in vec2 aTex;
 
 // Output color for fragment shader
 out vec3 color;
-
-// Uniform variable for scale
-uniform float scale;
-
-uniform mat4 model;
-uniform mat4 view;
-uniform mat4 proj;
-
 out vec2 texCoord;
+
+// Uniforms
+uniform mat4 camMatrix;
 
 void main()
 {
-   gl_Position = proj * view * model * vec4(aPos, 1.0f);
+   gl_Position = camMatrix * vec4(aPos, 1.0f);
    // Assigns colors from the vertex data to "color"
    color = aColor;
    texCoord = aTex;
