@@ -18,6 +18,7 @@ GLfloat vertices[] =
 	0.5f,	-0.5f, 0.0f,	    1.0f, 1.0f, 1.0f,	1.0f, 0.0f
 };
 
+// Indices para ordem vertices
 GLuint indices[] =
 {
 	0, 2, 1,
@@ -27,19 +28,13 @@ GLuint indices[] =
 
 int main()
 {
+	//INITIALIZE GLFW
 	glfwInit();
-
-
 	//Tell GLFW what version of OPENGL
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
 	//TELL GLFW WE ARE USING CORE PROFILE
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-
-
-
-
 
 	//CREATE WINDOW
 	GLFWwindow* window = glfwCreateWindow(800, 800, "OpenGL Hello", NULL, NULL);
@@ -56,21 +51,29 @@ int main()
 
 	glViewport(0, 0, 800, 800);
 
+	// Gera Shader object usando as shaders default.vert e default.frag
+
 	Shader shaderProgram("default.vert", "default.frag");
 
+	// Gera um Vertex Array Object e liga-o
 	VAO VAO1;
 	VAO1.Bind();
 
+	//Gera um Vertex Buffer Object e liga-o oas vertices
 	VBO VBO1(vertices, sizeof(vertices));
+	//Gera um Element Buffer Object e liga-o aos indices
 	EBO EBO1(indices, sizeof(indices));
 
+	//Liga os atributos VBO como coordenadas e cores ao VAO
 	VAO1.LinkAttrib(VBO1, 0, 3, GL_FLOAT, 8 * sizeof(float), (void*)0);
 	VAO1.LinkAttrib(VBO1, 1, 3, GL_FLOAT, 8 * sizeof(float), (void*)(3 * sizeof(float)));
 	VAO1.LinkAttrib(VBO1, 2, 2, GL_FLOAT, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+	// Da unbind para prevenir que seja modficado
 	VAO1.Unbind();
 	VBO1.Unbind();
 	EBO1.Unbind();
 
+	//Obtem a referencia do uniform scale da shader
 	GLuint uniID = glGetUniformLocation(shaderProgram.ID, "scale");
 
 	//Texture
@@ -87,7 +90,9 @@ int main()
 		glClear(GL_COLOR_BUFFER_BIT);
 		// Dizer ao opengl que shaderProgram usar
 		shaderProgram.Activate();
+		// Ativar a textura para ser renderizada
 		betty.Bind();
+		// Da um valor ao uniform; NOTA: Tem de ser sempre feito apos ativar o shaderProgram
 		glUniform1f(uniID, 0.5f); 
 
 		// dar bind ao VAO para o OPENGL o usar
@@ -98,7 +103,7 @@ int main()
 
 		glfwPollEvents();
 	}
-
+	//Apaga os objetos
 	VAO1.Delete();
 	VBO1.Delete();
 	EBO1.Delete();
