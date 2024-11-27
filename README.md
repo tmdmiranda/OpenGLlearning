@@ -18,4 +18,4 @@ shell32.lib
 
 POR FIM 
 
-stb_image.h e futuros headers serao colocados em "C:\GL\glad\include" (o stb estara presente no repositorio)
+stb_image.h e futuros headers serao colocados em "C:\GL\glad\include\stb" (o stb estara presente no repositorio)
