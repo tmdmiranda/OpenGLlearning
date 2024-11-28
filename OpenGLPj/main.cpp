@@ -32,6 +32,34 @@ GLuint indices[] =
 	3,0,4
 };
 
+GLfloat lightVertices[] =
+{ //     COORDINATES     //
+	-0.1f, -0.1f,  0.1f,
+	-0.1f, -0.1f, -0.1f,
+	 0.1f, -0.1f, -0.1f,
+	 0.1f, -0.1f,  0.1f,
+	-0.1f,  0.1f,  0.1f,
+	-0.1f,  0.1f, -0.1f,
+	 0.1f,  0.1f, -0.1f,
+	 0.1f,  0.1f,  0.1f
+};
+
+GLuint lightIndices[] =
+{
+	0, 1, 2,
+	0, 2, 3,
+	0, 4, 7,
+	0, 7, 3,
+	3, 7, 6,
+	3, 6, 2,
+	2, 6, 5,
+	2, 5, 1,
+	1, 5, 4,
+	1, 4, 0,
+	4, 5, 6,
+	4, 6, 7
+};
+
 const unsigned int width = 800;
 const unsigned int height = 800;
 
@@ -83,6 +111,36 @@ int main()
 	VBO1.Unbind();
 	EBO1.Unbind();
 
+	Shader lightShader("light.vert", "light.frag");
+
+	VAO lightVao;
+	lightVao.Bind();
+
+	VBO lightVbo(lightVertices, sizeof(lightVertices));
+	EBO lightEbo(lightIndices, sizeof(lightIndices));
+
+	lightVao.LinkAttrib(lightVbo, 0, 3, GL_FLOAT, 3 * sizeof(float), (void*)0);
+
+	lightVao.Unbind();
+	lightVbo.Unbind();
+	lightEbo.Unbind();
+
+	glm::vec4 lightColor = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f);
+
+	glm::vec3 lightPos = glm::vec3(0.5f, 0.5f, 0.5f);
+	glm::mat4 lightModel = glm::mat4(1.0f);
+	lightModel = glm::translate(lightModel, lightPos);
+
+	glm::vec3 pyramidPos = glm::vec3(0.0f, 0.0f, 0.0f);
+	glm::mat4 pyramidModel = glm::mat4(1.0f);
+	pyramidModel = glm::translate(pyramidModel, pyramidPos);
+
+	lightShader.Activate();
+	glUniformMatrix4fv(glGetUniformLocation(lightShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(lightModel));
+	glUniform4f(glGetUniformLocation(lightShader.ID, "lightColor"), lightColor.x, lightColor.y, lightColor.z, lightColor.w);
+	shaderProgram.Activate();
+	glUniformMatrix4fv(glGetUniformLocation(shaderProgram.ID, "model"), 1, GL_FALSE, glm::value_ptr(pyramidModel));
+	glUniform4f(glGetUniformLocation(shaderProgram.ID, "lightColor"), lightColor.x, lightColor.y, lightColor.z, lightColor.w);
 	
 	//Texture
 
@@ -100,17 +158,28 @@ int main()
 		glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		// Dizer ao opengl que shaderProgram usar
-		shaderProgram.Activate();
+
 
 		camera.Inputs(window);
-		camera.Matrix(45.0f, 0.1f, 100.0f, shaderProgram, "camMatrix");
+
+		camera.updateMatrix(45.0f, 0.1f, 100.0f);
+
+
+		// Dizer ao opengl que shaderProgram usar
+		shaderProgram.Activate();
+		camera.Matrix(shaderProgram, "camMatrix");
 
 		betty.Bind();
 		// dar bind ao VAO para o OPENGL o usar
 		VAO1.Bind();
 		// desenhar o triangulo
 		glDrawElements(GL_TRIANGLES, sizeof(indices)/sizeof(int), GL_UNSIGNED_INT, 0);
+
+		lightShader.Activate();
+		camera.Matrix(lightShader, "camMatrix");
+		lightVao.Bind();
+		glDrawElements(GL_TRIANGLES, sizeof(lightIndices) / sizeof(int), GL_UNSIGNED_INT, 0);
+
 		glfwSwapBuffers(window);
 
 		glfwPollEvents();
