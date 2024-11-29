@@ -13,7 +13,7 @@ std::string get_file_contents(const char* filename)
 		in.close();
 		return(contents);
 	}
-	throw(errno);
+	//throw(errno);
 }
 
 Shader::Shader(const char* vertexFile, const char* fragmentFile)

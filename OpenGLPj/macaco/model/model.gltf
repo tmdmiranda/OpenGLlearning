@@ -1,0 +1,175 @@
+{
+    "asset": {
+        "version": "2.0",
+        "generator": "Open Asset Import Library (assimp v5.4.0)"
+    },
+    "extensionsUsed": [
+        "KHR_materials_volume",
+        "FB_ngon_encoding"
+    ],
+    "accessors": [
+        {
+            "bufferView": 0,
+            "byteOffset": 0,
+            "componentType": 5126,
+            "count": 3716,
+            "type": "VEC3",
+            "max": [
+                0.500229001045227,
+                1.3009979724884033,
+                0.2513880133628845
+            ],
+            "min": [
+                -0.500229001045227,
+                -0.017085999250411987,
+                -0.3714039921760559
+            ]
+        },
+        {
+            "bufferView": 1,
+            "byteOffset": 0,
+            "componentType": 5126,
+            "count": 3716,
+            "type": "VEC3",
+            "max": [
+                0.9997531771659851,
+                0.9999415278434753,
+                0.9748237729072571
+            ],
+            "min": [
+                -0.9997531771659851,
+                -0.9998734593391418,
+                -1.0
+            ]
+        },
+        {
+            "bufferView": 2,
+            "byteOffset": 0,
+            "componentType": 5126,
+            "count": 3716,
+            "type": "VEC2",
+            "max": [
+                0.9997889995574951,
+                0.9997889995574951
+            ],
+            "min": [
+                0.00021100000594742596,
+                0.13606399297714233
+            ]
+        },
+        {
+            "bufferView": 3,
+            "byteOffset": 0,
+            "componentType": 5125,
+            "count": 5574,
+            "type": "SCALAR",
+            "max": [
+                3715
+            ],
+            "min": [
+                0
+            ]
+        }
+    ],
+    "buffers": [
+        {
+            "byteLength": 141208,
+            "uri": "model_0.bin"
+        }
+    ],
+    "bufferViews": [
+        {
+            "buffer": 0,
+            "byteOffset": 0,
+            "byteLength": 44592,
+            "target": 34962
+        },
+        {
+            "buffer": 0,
+            "byteOffset": 44592,
+            "byteLength": 44592,
+            "target": 34962
+        },
+        {
+            "buffer": 0,
+            "byteOffset": 89184,
+            "byteLength": 29728,
+            "target": 34962
+        },
+        {
+            "buffer": 0,
+            "byteOffset": 118912,
+            "byteLength": 22296,
+            "target": 34963
+        }
+    ],
+    "images": [
+        {
+            "uri": "textures/image_0.png"
+        }
+    ],
+    "materials": [
+        {
+            "name": "Material",
+            "pbrMetallicRoughness": {
+                "baseColorTexture": {
+                    "index": 0
+                },
+                "metallicFactor": 0.0,
+                "roughnessFactor": 0.6759999990463257
+            }
+        }
+    ],
+    "meshes": [
+        {
+            "name": "meshes[0]",
+            "primitives": [
+                {
+                    "mode": 4,
+                    "material": 0,
+                    "indices": 3,
+                    "attributes": {
+                        "POSITION": 0,
+                        "NORMAL": 1,
+                        "TEXCOORD_0": 2
+                    }
+                }
+            ]
+        }
+    ],
+    "nodes": [
+        {
+            "name": "model",
+            "children": [
+                1
+            ]
+        },
+        {
+            "name": "Orangutan_Cube008",
+            "mesh": 0,
+            "extras": {
+                "name": "Orangutan_Cube.008"
+            }
+        }
+    ],
+    "samplers": [
+        {
+            "magFilter": 9729,
+            "minFilter": 9986
+        }
+    ],
+    "scenes": [
+        {
+            "nodes": [
+                0
+            ]
+        }
+    ],
+    "textures": [
+        {
+            "source": 0,
+            "sampler": 0
+        }
+    ],
+    "scene": 0
+}
